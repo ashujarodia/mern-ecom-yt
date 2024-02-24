@@ -153,7 +153,12 @@ export const getAllProducts = TryCatch(async (req: Request<{}, {}, {}, SearchReq
 
 	//for skipping products for pagination
 	const skip = (page - 1) * limit;
-	const baseQuery: BaseQuery = {};
+	const baseQuery: BaseQuery = {
+		price: {
+			$lte: 0,
+		},
+		category: '',
+	};
 
 	if (search) {
 		baseQuery.name = { $regex: search, $options: 'i' };
